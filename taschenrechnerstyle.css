@@ -11,6 +11,7 @@ body {
 
 #wholeCalculator {
     max-width: 700px;
+    margin: auto;
 }
 
 table {
