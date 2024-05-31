@@ -1,3 +1,19 @@
 * {
 	font-family: Arial, Helvetica, sans-serif;
+	background-color: cyan;
+}
+
+body {
+	max-width: 800px;
+    margin: auto;
+}
+
+h1 {
+	text-align: center;
+}
+
+#construction {
+	color: red;
+	font-size: 32px;
+	font-weight: bold;
 }
