@@ -50,8 +50,25 @@ jobs:
           http-server -p 8080 &
           sleep 5 # wait for server to start
 
+      - name: Check if Local Server is Running
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)
+          if [ $response -eq 200 ]; then
+            echo "Local server is running and accessible."
+          else
+            echo "Local server is not running or not accessible. Response code: $response"
+            exit 1
+          fi
+
+      - name: Check Network Connectivity
+        run: |
+          ping -c 3 google.com
+
+
+
       - name: Run accessibility tests (Lighthouse)
-        run: lighthouse http://localhost:8080 --output json --output html --output-path ./lighthouse
+        run: lighthouse http://localhost:8080 --output json --output html --output-path ./lighthouse --chrome-flags="--headless"
+
         continue-on-error: true
 
       - name: Serve files for Lighthouse
