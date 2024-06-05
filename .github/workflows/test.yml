@@ -1,4 +1,4 @@
-on: 
+on:
   push:
   workflow_dispatch:
 
@@ -10,3 +10,38 @@ jobs:
       - name: hello
         run: echo "hello"
         shell: bash
+        steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the site
+        run: npm run build
+
+      - name: Lint HTML files
+        run: npm run lint:html
+
+      - name: Lint CSS files
+        run: npm run lint:css
+
+      - name: Lint JavaScript files
+        run: npm run lint:js
+
+      - name: Run accessibility tests
+        run: npm run test:accessibility
+
+      - name: Run performance tests
+        run: npm run test:performance
+
+      - name: Check for broken links
+        run: npm run check:links
+
+      - name: Run security checks
+        run: npm run test:security
