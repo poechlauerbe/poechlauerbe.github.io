@@ -25,7 +25,7 @@ jobs:
         run: sudo apt-get install linkchecker
 
       - name: Install http-server
-          sudo apt install http-server
+        run: sudo apt install http-server
         continue-on-error: true
 
       - name: Validate HTML
