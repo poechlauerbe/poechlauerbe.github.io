@@ -1,0 +1,51 @@
+name: Static Website CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Install HTMLHint
+        run: npm install -g htmlhint
+
+      - name: Install Stylelint
+        run: npm install -g stylelint stylelint-config-standard
+
+      - name: Install LinkChecker
+        run: sudo apt-get install linkchecker
+
+      - name: Install Lighthouse
+        run: npm install -g lighthouse
+
+      - name: Validate HTML
+        run: htmlhint '**/*.html'
+
+      - name: Lint CSS
+        run: |
+          echo "module.exports = { extends: 'stylelint-config-standard' };" > .stylelintrc.js
+          stylelint '**/*.css'
+
+      - name: Check for broken links
+        run: linkchecker ./index.html
+
+      - name: Run accessibility tests (Lighthouse)
+        run: lighthouse http://localhost:8080 --output json --output html --output-path ./lighthouse
+
+      - name: Serve files for Lighthouse
+        run: |
+          sudo npm install -g http-server
+          http-server -p 8080 &
+
+      - name: Run performance tests (Lighthouse)
+        run: lighthouse http://localhost:8080 --output json --output html --output-path ./lighthouse
