@@ -18,7 +18,7 @@ Erledigt:
 
 // Prüft, ob Komma bereits in Verwendung bzw. ob schon eine Zahl vor dem Komma getippt wurde.
 function kommaCheck(operation) {
-    var container = document.getElementById('resultArea')
+    var container = document.getElementById('result-area')
     // Komma nur, wenn nicht bereits in Verwendung, nicht am Beginn, nicht nach einem Rechenzeichen, und Rechnung noch nicht beendet
     if (kommaUsed === false && container.innerHTML !== '' && !container.innerHTML.endsWith(' ') && !calculationFinished ) {
         container.innerHTML += operation;
@@ -28,9 +28,9 @@ function kommaCheck(operation) {
 }
 
 function appendOperation(operation, mathOperator) {
-    var container = document.getElementById('resultArea');
+    var container = document.getElementById('result-area');
 
-    // Überprüfung, ob Rechnung schon beendet wurde, falls ja - Rücksetzen der Variablen 
+    // Überprüfung, ob Rechnung schon beendet wurde, falls ja - Rücksetzen der Variablen
     if (calculationFinished && mathOperator === false) {
         // Löschen des Eingabefeldes
         deleteAll();
@@ -53,16 +53,16 @@ function appendOperation(operation, mathOperator) {
     }
     // Hinzufügen der Zahl bzw. des Rechenzeichen
     else {
-        document.getElementById('resultArea').innerHTML +=operation;
+        document.getElementById('result-area').innerHTML +=operation;
         if (operation.endsWith (' ')) {kommaUsed = false}
     }
-    
-    
+
+
 
 };
 // Ergebnis ermitteln
 function calculateResult() {
-    var container = document.getElementById('resultArea');
+    var container = document.getElementById('result-area');
     var result = eval(container.innerHTML);
     container.innerHTML = result;
     calculationFinished = true;
@@ -70,12 +70,12 @@ function calculateResult() {
 
 // Eingabefeld leeren
 function deleteAll(){
-    document.getElementById('resultArea').innerHTML = '';
+    document.getElementById('result-area').innerHTML = '';
 }
 
 // letztes Zeichen löschen
 function deleteLast(){
-    var container = document.getElementById('resultArea');
+    var container = document.getElementById('result-area');
     if (calculationFinished === false) {
         if (container.innerHTML.endsWith(' ')) {
             container.innerHTML = container.innerHTML.slice(0,-3);

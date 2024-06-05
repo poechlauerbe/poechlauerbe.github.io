@@ -19,9 +19,14 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g htmlhint stylelint stylelint-config-standard lighthouse
+          sudo apt install chromium-browser
 
       - name: Install LinkChecker
         run: sudo apt-get install linkchecker
+
+      - name: Install http-server
+          sudo apt install http-server
+        continue-on-error: true
 
       - name: Validate HTML
         run: htmlhint '**/*.html'
