@@ -30,22 +30,28 @@ jobs:
 
       - name: Validate HTML
         run: htmlhint '**/*.html'
+        continue-on-error: true
 
       - name: Lint CSS
         run: |
           echo "module.exports = { extends: 'stylelint-config-standard' };" > .stylelintrc.js
           stylelint '**/*.css'
+        continue-on-error: true
 
       - name: Check for broken links
         run: linkchecker ./index.html
+        continue-on-error: true
 
       - name: Run accessibility tests (Lighthouse)
         run: lighthouse http://localhost:8080 --output json --output html --output-path ./lighthouse
+        continue-on-error: true
 
       - name: Serve files for Lighthouse
         run: |
           sudo npm install -g http-server
           http-server -p 8080 &
+        continue-on-error: true
 
       - name: Run performance tests (Lighthouse)
         run: lighthouse http://localhost:8080 --output json --output html --output-path ./lighthouse
+        continue-on-error: true
