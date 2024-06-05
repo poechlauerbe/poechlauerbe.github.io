@@ -19,7 +19,9 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g htmlhint stylelint stylelint-config-standard lighthouse
-          sudo apt install chromium-browser
+          
+      - name: Set up Chrome
+        uses: actions/setup-chrome@v1
 
       - name: Install LinkChecker
         run: sudo apt-get install linkchecker
