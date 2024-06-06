@@ -4,7 +4,7 @@
 
 body {
 	max-width: 800px;
-	margin: 20px auto;
+	margin: 0px auto;
 }
 
 @media (width <= 799px) {
@@ -13,11 +13,17 @@ body {
 	}
 }
 
+#background {
+	background-color: lightblue;
+	padding: 20px 0;
+}
+
 nav {
 	border: 10px solid black;
 	border-radius: 30px;
 	font-size: 20px;
 	padding: 10px;
+	margin: 10px;
 	background-color: white;
 }
 

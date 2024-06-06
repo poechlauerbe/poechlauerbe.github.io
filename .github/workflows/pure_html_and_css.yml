@@ -64,6 +64,6 @@ jobs:
             exit 1
           fi
 
-      - name: Run accessibility tests (Lighthouse)
-        run: lighthouse http://localhost:8080 --output json --output html --output-path ./lighthouse --chrome-path CHROMIUM_PATH
-        continue-on-error: true
+      # Not working yet:
+      # - name: Run accessibility tests (Lighthouse)
+      #   run: lighthouse http://localhost:8080 --output json --output html --output-path ./lighthouse --chrome-path CHROMIUM_PATH
