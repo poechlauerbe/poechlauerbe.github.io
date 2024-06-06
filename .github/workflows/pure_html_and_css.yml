@@ -28,20 +28,22 @@ jobs:
 
       - name: Install http-server
         run: sudo npm install -g http-server
-        continue-on-error: true
 
       - name: Validate HTML
         run: htmlhint '**/*.html'
+        id: htmlhint
         continue-on-error: true
 
       - name: Lint CSS
         run: |
           echo "module.exports = { extends: 'stylelint-config-standard' };" > .stylelintrc.js
           stylelint '**/*.css'
+        id: stylelint
         continue-on-error: true
 
       - name: Check for broken links
         run: linkchecker ./index.html
+        id: linkchecker
         continue-on-error: true
 
       - name: Start local server
@@ -49,10 +51,6 @@ jobs:
           http-server -p 8080 &
           sleep 5 # wait for server to start
 
-      - name: Find Chromium Path
-        run: |
-          CHROMIUM_PATH=$(find / -type f -name "chromium-browser" 2>/dev/null | head -n 1)
-          echo "Chromium found at: $CHROMIUM_PATH"
 
       - name: Check if Local Server is Running
         run: |
@@ -63,6 +61,26 @@ jobs:
             echo "Local server is not running or not accessible. Response code: $response"
             exit 1
           fi
+
+      - name: Error handling
+        if: steps.htmlhint.outcome == 'failure' || steps.stylelint.outcome == 'failure' || steps.linkchecker.outcome == 'failure'
+        run: |
+          if steps.htmlhint.outcome == 'failure'; then
+            echo "HTML validation failed."
+          fi
+          if steps.stylelint.outcome == 'failure'; then
+            echo "CSS linting failed."
+          fi
+          if steps.linkchecker.outcome == 'failure'; then
+            echo "Link checking failed."
+          fi
+          exit 1
+
+      #  Lasts forever:
+      # - name: Find Chromium Path
+      #   run: |
+      #     CHROMIUM_PATH=$(find / -type f -name "chromium-browser" 2>/dev/null | head -n 1)
+      #     echo "Chromium found at: $CHROMIUM_PATH"
 
       # Not working yet:
       # - name: Run accessibility tests (Lighthouse)

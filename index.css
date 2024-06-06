@@ -4,7 +4,7 @@
 
 body {
 	max-width: 800px;
-	margin: 0px auto;
+	margin: 0 auto;
 }
 
 @media (width <= 799px) {
