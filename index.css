@@ -19,12 +19,13 @@ body {
 }
 
 nav {
+	background-color: white;
 	border: 10px solid black;
 	border-radius: 30px;
 	font-size: 20px;
 	padding: 10px;
 	margin: 10px;
-	background-color: white;
+	text-align: center;
 }
 
 nav a {
@@ -45,6 +46,11 @@ nav a:active {
 
 main {
 	padding: 0 10px;
+}
+
+footer {
+	text-align: center;
+	padding: 10px;
 }
 
 h1 {
