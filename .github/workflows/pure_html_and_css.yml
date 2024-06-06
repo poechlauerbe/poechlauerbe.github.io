@@ -20,8 +20,8 @@ jobs:
         run: |
           npm install -g htmlhint stylelint stylelint-config-standard lighthouse
 
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@v1.7.1
+      # - name: Setup Chrome
+      #   uses: browser-actions/setup-chrome@v1.7.1
 
       - name: Install LinkChecker
         run: sudo apt-get install linkchecker
@@ -65,13 +65,13 @@ jobs:
       - name: Error handling
         if: steps.htmlhint.outcome == 'failure' || steps.stylelint.outcome == 'failure' || steps.linkchecker.outcome == 'failure'
         run: |
-          if [ "${{steps.htmlhint.outcome}}"" == 'failure']; then
+          if [ "${{steps.htmlhint.outcome}}" == "failure"]; then
             echo "HTML validation failed."
           fi
-          if [ "${{steps.stylelint.outcome}}"" == 'failure']; then
+          if [ "${{steps.stylelint.outcome}}" == "failure"]; then
             echo "CSS linting failed."
           fi
-          if [ "${{steps.linkchecker.outcome}}"" == 'failure']; then
+          if [ "${{steps.linkchecker.outcome}}" == "failure"]; then
             echo "Link checking failed."
           fi
           exit 1
